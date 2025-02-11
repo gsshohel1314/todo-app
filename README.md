@@ -54,7 +54,7 @@ This is a simple To-Do app built using **PHP**, **Laravel** and **Tailwind CSS**
 - php artisan schedule:work
 
 ### 14. Run the Queue worker (for sending email reminders)
-- php artisan queue:work
+- php artisan queue:work or php artisan queue:listen
 
 ## Features
 - CRUD Operations: Create, read, update, and delete To-Do tasks.
