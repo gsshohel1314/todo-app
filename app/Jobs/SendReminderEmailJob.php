@@ -31,8 +31,14 @@ class SendReminderEmailJob implements ShouldQueue
 
         // logger()->info("CSV file generated: {$csvFileName}");
 
+        $emailData = [
+            'todo' => $this->todo,
+            'csvFileName' => $csvFileName,
+            'taskUrl' => route('todos.index')
+        ];
+
         // Send the reminder email
-        Mail::to($this->todo->user->email)->send(new ReminderEmail($this->todo, $csvFileName));
+        Mail::to($this->todo->user->email)->send(new ReminderEmail($emailData));
 
         // Mark email as sent
         $this->todo->update(['is_email_sent' => true]);

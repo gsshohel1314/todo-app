@@ -15,10 +15,18 @@ class ReminderEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $todo;
+    public $csvFileName;
+    public $taskUrl;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(public Todo $todo, public $csvFileName) {}
+    public function __construct(public $mailData) {
+        $this->todo = $mailData['todo'];
+        $this->csvFileName = $mailData['csvFileName'];
+        $this->taskUrl = $mailData['taskUrl'];
+    }
 
     /**
      * Get the message envelope.
@@ -37,6 +45,10 @@ class ReminderEmail extends Mailable
     {
         return new Content(
             view: 'emails.reminder',
+            with: [
+                'todo' => $this->todo, 
+                'taskUrl' => $this->taskUrl
+            ]
         );
     }
 
