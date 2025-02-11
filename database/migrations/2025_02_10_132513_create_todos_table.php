@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->dateTime('due_time');
-            $table->boolean('is_done')->default(false);
+            $table->dateTime('due_time', 0);
+            // $table->boolean('is_done')->default(false);
             $table->boolean('is_email_sent')->default(false);
             $table->timestamps();
         });

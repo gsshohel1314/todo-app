@@ -9,7 +9,7 @@ class Todo extends Model
     protected $guarded = ['id'];
     
     protected $casts = [
-        'due_time' => 'datetime',
+        'due_time' => 'datetime:Y-m-d H:i',
         'is_done' => 'boolean',
         'is_email_sent' => 'boolean',
     ];

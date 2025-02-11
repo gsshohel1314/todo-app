@@ -17,10 +17,10 @@ class TodoSeeder extends Seeder
         
         foreach (range(1, 10) as $index) {
             Todo::create([
-                // 'user_id' => $faker->randomElement([1, 2]),
+                'user_id' => $faker->randomElement([1, 2]),
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,
-                'due_time' => $faker->dateTimeBetween('now', '+1 month'),
+                'due_time' => $faker->dateTimeBetween('now', '+1 month')->format('Y-m-d H:i'),
                 'is_done' => $faker->boolean,
                 'is_email_sent' => $faker->boolean,
             ]);
