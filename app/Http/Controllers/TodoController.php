@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -29,18 +30,16 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['user_id' => Auth::id()]);
+
         $request->validate([
+            'user_id'      => 'exists:users,id',
             'title'        => 'required',
             'description'  => 'nullable',
             'due_time'     => 'required|date',
         ]);
-    
-        Todo::create([
-            'user_id'      => 1, // Static User ID
-            'title'        => $request->title,
-            'description'  => $request->description,
-            'due_time'     => $request->due_time,
-        ]);
+
+        Todo::create($request->all());
     
         return redirect()->route('todos.index')->with('success', 'Todo created successfully.');
     }
