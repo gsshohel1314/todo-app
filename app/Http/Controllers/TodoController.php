@@ -13,7 +13,11 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::orderBy('id', 'DESC')->get();
+        if (Auth::user()->role === 'admin') {
+            $todos = Todo::orderBy('id', 'DESC')->get();
+        } else {
+            $todos = Todo::where('user_id', Auth::id())->orderBy('id', 'DESC')->get();
+        }
         return view('todos.index', compact('todos'));
     }
 
